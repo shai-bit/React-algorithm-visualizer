@@ -26,6 +26,7 @@ class Navbar extends Component {
               type="button"
               className="btn btn-secondary"
               style={buttonStyle}
+              disabled
             >
               Mergesort
             </button>
@@ -34,6 +35,7 @@ class Navbar extends Component {
               type="button"
               className="btn btn-secondary"
               style={buttonStyle}
+              disabled
             >
               Bubblesort
             </button>
@@ -42,10 +44,12 @@ class Navbar extends Component {
               type="button"
               className="btn btn-secondary"
               style={buttonStyle}
+              disabled
             >
               Binary Search
             </button>
             <button
+              id="startbutton"
               onClick={() => onStart()}
               type="button"
               className="btn btn-success"
@@ -54,6 +58,7 @@ class Navbar extends Component {
               START
             </button>
             <button
+              id="generatebutton"
               onClick={() => onReset()}
               style={{ marginLeft: "500px" }}
               className="btn btn-warning"

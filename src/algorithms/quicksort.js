@@ -23,14 +23,14 @@ function partition(array, start, end, animations) {
   let pivot = array[end];
   let pIndex = start;
   for (let i = start; i < end; i++) {
-    animations.push([0, pIndex, i, end]);
+    animations.push(["comparing", pIndex, i, end]);
     if (array[i] <= pivot) {
-      animations.push([1, pIndex, i, end]);
+      animations.push(["swapping", pIndex, i, end]);
       swap(array, i, pIndex);
       pIndex++;
     }
   }
   swap(array, pIndex, end);
-  animations.push([1, pIndex, end - 1, end]);
+  animations.push(["swapping", pIndex, end, end]);
   return pIndex;
 }
