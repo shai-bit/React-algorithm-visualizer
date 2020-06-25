@@ -11,7 +11,7 @@ class Navbar extends Component {
 
     return (
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
-        <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div className="navbar-collapse" id="navbarNavAltMarkup">
           <div className="navbar-nav">
             <button
               onClick={() => selectAlgorithm("quicksort")}
@@ -35,7 +35,6 @@ class Navbar extends Component {
               type="button"
               className="btn btn-secondary"
               style={buttonStyle}
-              disabled
             >
               Bubblesort
             </button>

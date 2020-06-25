@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import Array from "./components/array";
 import Navbar from "./components/navbar";
-import * as sortingAlgorithms from "./algorithms/quicksort";
+import { getQuicksortAnimations } from "./algorithms/quicksort";
+import { getBubblesortAnimations } from "./algorithms/bubblesort";
 
 const comparingColor = "pink";
 const pivotColor = "red";
-const pIndexColor = "purple";
+const indexColor = "purple";
 const originalColor = "cadetblue";
 
 class App extends Component {
@@ -71,16 +72,67 @@ class App extends Component {
     this.enableStartorGenerate("start");
   };
 
+  arraysAreEqual = (array) => {
+    const javaSorted = array.slice().sort((a, b) => a - b);
+    let lenghtOne = array.length;
+    let lenghtTwo = javaSorted.length;
+    if (lenghtOne !== lenghtTwo) return false;
+    for (let i = 0; i < array.length; i++) {
+      if (array[i] !== javaSorted[i]) {
+        // console.log(arrayOne[i], javaSorted[i]);
+        return false;
+      }
+    }
+    return true;
+  };
+
   startSort = () => {
     const chosenAlgorithm = this.state.algorithm;
     const array = this.state.array;
+    let barsArray = document.getElementsByClassName("bar");
+
     if (chosenAlgorithm.length > 0) {
       if (chosenAlgorithm === "quicksort") {
-        let barsArray = document.getElementsByClassName("bar");
-        let results = sortingAlgorithms.getQuicksortAnimations(array);
-        this.quicksortAnimator(results[1], barsArray);
+        let animations = getQuicksortAnimations(array);
+        this.quicksortAnimator(animations, barsArray);
+      } else if (chosenAlgorithm === "bubblesort") {
+        let animations = getBubblesortAnimations(array);
+        this.bubblesortAnimator(animations, barsArray);
       }
     }
+  };
+  // Animations array: ["state", i, i + 1]
+  bubblesortAnimator = (animations, barsArray) => {
+    for (let i = 0; i < animations.length; i++) {
+      if (i === animations.length - 1) {
+      }
+      const [state, iOne, iTwo] = animations[i];
+      const iOneBar = barsArray[iOne].style;
+      const iTwoBar = barsArray[iTwo].style;
+      if (state === "comparing") {
+        setTimeout(() => {
+          iOneBar.backgroundColor = indexColor;
+        }, i * 0.5);
+
+        setTimeout(() => {
+          iOneBar.backgroundColor = originalColor;
+        }, (i + 1) * 0.5);
+      } else {
+        setTimeout(() => {
+          let tmp = iOneBar.height;
+          iOneBar.height = iTwoBar.height;
+          iTwoBar.height = tmp;
+        }, i * 0.5);
+      }
+      // Turns all bars to green - completed
+      setTimeout(() => {
+        for (let i = 0; i < barsArray.length; i++) {
+          barsArray[i].style.backgroundColor = "green";
+        }
+        this.enableStartorGenerate("generate");
+      }, 26000);
+    }
+    this.disableStartandGenerate();
   };
 
   // Animations array: ["state", pIndex, i, end]
@@ -90,27 +142,27 @@ class App extends Component {
       const pIndexBar = barsArray[pIndex].style;
       const barTwoStyle = barsArray[barTwoIndex].style;
       const pivotBar = barsArray[pivotIndex].style;
+      //Changes bars colors accordingly
       if (state === "comparing") {
-        //Changes bars colors accordingly  (comparing)
         setTimeout(() => {
-          pIndexBar.backgroundColor = pIndexColor;
+          pIndexBar.backgroundColor = indexColor;
           barTwoStyle.backgroundColor = comparingColor;
           pivotBar.backgroundColor = pivotColor;
-        }, i * 5);
+        }, i * 0.5);
 
         // Turns bars back to blue
         setTimeout(() => {
           pIndexBar.backgroundColor = originalColor;
           barTwoStyle.backgroundColor = originalColor;
           pivotBar.backgroundColor = originalColor;
-        }, (i + 1) * 5);
+        }, (i + 1) * 0.5);
       } else {
         //Swaps bar's heights and resets colors
         setTimeout(() => {
           let tmp = pIndexBar.height;
           pIndexBar.height = barTwoStyle.height;
           barTwoStyle.height = tmp;
-        }, i * 5);
+        }, i * 0.5);
       }
     }
     // Turns all bars to green - completed
@@ -119,7 +171,7 @@ class App extends Component {
         barsArray[i].style.backgroundColor = "green";
       }
       this.enableStartorGenerate("generate");
-    }, 5 * animations.length);
+    }, 0.5 * animations.length);
     this.disableStartandGenerate();
   };
 
