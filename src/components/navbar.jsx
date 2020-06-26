@@ -39,13 +39,12 @@ class Navbar extends Component {
               Bubblesort
             </button>
             <button
-              onClick={() => selectAlgorithm("binarysearch")}
+              onClick={() => selectAlgorithm("heapsort")}
               type="button"
               className="btn btn-secondary"
               style={buttonStyle}
-              disabled
             >
-              Binary Search
+              Heap Sort
             </button>
             <button
               id="startbutton"

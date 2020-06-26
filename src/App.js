@@ -3,6 +3,7 @@ import Array from "./components/array";
 import Navbar from "./components/navbar";
 import { getQuicksortAnimations } from "./algorithms/quicksort";
 import { getBubblesortAnimations } from "./algorithms/bubblesort";
+import { getHeapsortAnimations } from "./algorithms/heapsort";
 
 const comparingColor = "pink";
 const pivotColor = "red";
@@ -90,7 +91,6 @@ class App extends Component {
     const chosenAlgorithm = this.state.algorithm;
     const array = this.state.array;
     let barsArray = document.getElementsByClassName("bar");
-
     if (chosenAlgorithm.length > 0) {
       if (chosenAlgorithm === "quicksort") {
         let animations = getQuicksortAnimations(array);
@@ -98,18 +98,58 @@ class App extends Component {
       } else if (chosenAlgorithm === "bubblesort") {
         let animations = getBubblesortAnimations(array);
         this.bubblesortAnimator(animations, barsArray);
+      } else if (chosenAlgorithm === "heapsort") {
+        let animations = getHeapsortAnimations(array);
+        console.log(animations);
+        this.heapsortAnimator(animations, barsArray);
       }
     }
   };
-  // Animations array: ["state", i, i + 1]
+
+  // Animations array [state, largest, comparison]
+  heapsortAnimator = (animations, barsArray) => {
+    for (let i = 0; i < animations.length; i++) {
+      const [state, largest, comparison] = animations[i];
+      const largestBar = barsArray[largest].style;
+      const comparisonBar = barsArray[comparison].style;
+      if (state === "comparing") {
+        //Colors and restores bars being compared
+        setTimeout(() => {
+          largestBar.backgroundColor = pivotColor;
+          comparisonBar.backgroundColor = pivotColor;
+        }, i * 5);
+
+        setTimeout(() => {
+          largestBar.backgroundColor = originalColor;
+          comparisonBar.backgroundColor = originalColor;
+        }, (i + 1) * 5);
+      } else {
+        //Swaps bar's heights
+        setTimeout(() => {
+          let tmp = largestBar.height;
+          largestBar.height = comparisonBar.height;
+          comparisonBar.height = tmp;
+        }, (i + 2) * 5);
+      }
+    }
+    // Turns all bars green - completed
+    setTimeout(() => {
+      for (let i = 0; i < barsArray.length; i++) {
+        barsArray[i].style.backgroundColor = "green";
+      }
+      this.enableStartorGenerate("generate");
+    }, 5 * animations.length);
+    this.disableStartandGenerate();
+  };
+
+  // Animations array: [state, i, i + 1]
   bubblesortAnimator = (animations, barsArray) => {
     for (let i = 0; i < animations.length; i++) {
-      if (i === animations.length - 1) {
-      }
       const [state, iOne, iTwo] = animations[i];
-      const iOneBar = barsArray[iOne].style;
-      const iTwoBar = barsArray[iTwo].style;
+      let iOneBar = barsArray[iOne].style;
+      let iTwoBar = barsArray[iTwo].style;
       if (state === "comparing") {
+        //Colors and resotores bars being compared
         setTimeout(() => {
           iOneBar.backgroundColor = indexColor;
         }, i * 0.5);
@@ -118,20 +158,21 @@ class App extends Component {
           iOneBar.backgroundColor = originalColor;
         }, (i + 1) * 0.5);
       } else {
+        //Swaps bar's heights
         setTimeout(() => {
           let tmp = iOneBar.height;
           iOneBar.height = iTwoBar.height;
           iTwoBar.height = tmp;
         }, i * 0.5);
       }
-      // Turns all bars to green - completed
-      setTimeout(() => {
-        for (let i = 0; i < barsArray.length; i++) {
-          barsArray[i].style.backgroundColor = "green";
-        }
-        this.enableStartorGenerate("generate");
-      }, 26000);
     }
+    // Turns all bars green - completed
+    setTimeout(() => {
+      for (let i = 0; i < barsArray.length; i++) {
+        barsArray[i].style.backgroundColor = "green";
+      }
+      this.enableStartorGenerate("generate");
+    }, 26000);
     this.disableStartandGenerate();
   };
 
@@ -148,30 +189,30 @@ class App extends Component {
           pIndexBar.backgroundColor = indexColor;
           barTwoStyle.backgroundColor = comparingColor;
           pivotBar.backgroundColor = pivotColor;
-        }, i * 0.5);
+        }, i * 5);
 
         // Turns bars back to blue
         setTimeout(() => {
           pIndexBar.backgroundColor = originalColor;
           barTwoStyle.backgroundColor = originalColor;
           pivotBar.backgroundColor = originalColor;
-        }, (i + 1) * 0.5);
+        }, (i + 1) * 5);
       } else {
-        //Swaps bar's heights and resets colors
+        //Swaps bar's heights
         setTimeout(() => {
           let tmp = pIndexBar.height;
           pIndexBar.height = barTwoStyle.height;
           barTwoStyle.height = tmp;
-        }, i * 0.5);
+        }, i * 5);
       }
     }
-    // Turns all bars to green - completed
+    // Turns all bars green - completed
     setTimeout(() => {
       for (let i = 0; i < barsArray.length; i++) {
         barsArray[i].style.backgroundColor = "green";
       }
       this.enableStartorGenerate("generate");
-    }, 0.5 * animations.length);
+    }, 5 * animations.length);
     this.disableStartandGenerate();
   };
 
