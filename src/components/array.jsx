@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Bars from "./bars";
-import "./arraybars.css";
+import "./components.css";
 
 class Array extends Component {
   render() {

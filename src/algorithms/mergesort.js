@@ -1,42 +1,51 @@
-const getMergesortAnimations = (array) => {
+export const getMergesortAnimations = (array) => {
   let animations = [];
-  let auxArray = array.slice();
-  mergesort(auxArray, animations);
+  const auxArray = array.slice();
+  mergesort(array, 0, array.length - 1, auxArray, animations);
   return animations;
 };
 
-function mergesort(array, animations) {
-  if (array.length > 1) {
-    let mid = Math.floor(array.length / 2);
-    let left = array.slice(0, mid);
-    let right = array.slice(mid);
-    mergesort(left, animations);
-    mergesort(right, animations);
-    merge(array, left, right, animations);
-  }
+function mergesort(mainArray, startIdx, endIdx, auxArray, animations) {
+  if (startIdx === endIdx) return;
+  const middleIdx = Math.floor((startIdx + endIdx) / 2);
+  // Does left
+  mergesort(auxArray, startIdx, middleIdx, mainArray, animations);
+  // Does right
+  mergesort(auxArray, middleIdx + 1, endIdx, mainArray, animations);
+  merge(mainArray, startIdx, middleIdx, endIdx, auxArray, animations);
 }
 
-function merge(array, left, right, animations) {
-  let i, j, k;
-  i = j = k = 0;
-  while (i < left.length && j < right.length) {
-    if (left[i] < right[j]) {
-      array[k] = left[i];
+function merge(mainArray, startIdx, middleIdx, endIdx, auxArray, animations) {
+  let k = startIdx;
+  let i = startIdx;
+  let j = middleIdx + 1;
+  while (i <= middleIdx && j <= endIdx) {
+    // Here we set the value to null because we´re only comparing
+    animations.push(["comparing", i, j, null]);
+    if (auxArray[i] <= auxArray[j]) {
+      // Here the value equals to the smallest number in that comparison
+      animations.push(["swapping", k, i, auxArray[i]]);
+      mainArray[k] = auxArray[i];
       i++;
     } else {
-      array[k] = right[j];
+      // Here too the value equals to the smallest number in that comparison
+      animations.push(["swapping", k, j, auxArray[j]]);
+      mainArray[k] = auxArray[j];
       j++;
     }
     k++;
   }
-  while (i < left.length) {
-    array[k] = left[i];
+  // Copies the remaining values
+  while (i <= middleIdx) {
+    animations.push(["swapping", k, i, auxArray[i]]);
+    mainArray[k] = auxArray[i];
     i++;
     k++;
   }
 
-  while (j < right.length) {
-    array[k] = right[j];
+  while (j <= endIdx) {
+    animations.push(["swapping", k, j, auxArray[j]]);
+    mainArray[k] = auxArray[j];
     j++;
     k++;
   }

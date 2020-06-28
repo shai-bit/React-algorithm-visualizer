@@ -9,3 +9,15 @@
   width: 3px;
   margin-right: 2px;
 }
+
+.navbar-collapse {
+  justify-content: center;
+}
+
+.links {
+  margin: 10px;
+}
+
+.select-buttons {
+  text-align: center;
+}
