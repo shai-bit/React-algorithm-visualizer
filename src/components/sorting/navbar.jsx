@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./components.css";
+import "./sorting.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 class Navbar extends Component {
@@ -17,7 +17,7 @@ class Navbar extends Component {
     return (
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <button
-          class="navbar-toggler hidden-sm-up"
+          className="navbar-toggler hidden-sm-up"
           type="button"
           onClick={() => hideNavbar()}
         >

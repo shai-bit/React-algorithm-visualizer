@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Bars from "./bars";
-import "./components.css";
+import "./sorting.css";
 
 class Array extends Component {
   render() {

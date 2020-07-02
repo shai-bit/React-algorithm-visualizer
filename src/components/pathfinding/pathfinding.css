@@ -1,0 +1,25 @@
+.grid {
+  margin-top: 10px;
+}
+.row {
+  justify-content: center;
+}
+
+.node {
+  width: 25px;
+  height: 25px;
+  outline: 1px solid grey;
+  display: inline-block;
+}
+
+.start {
+  background-color: green;
+}
+
+.finish {
+  background-color: red;
+}
+
+.navbar-collapse {
+  justify-content: center;
+}

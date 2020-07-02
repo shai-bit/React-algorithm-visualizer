@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import "./components.css";
+import "./sorting/sorting.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 class Select extends Component {

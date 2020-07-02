@@ -1,24 +1,24 @@
 import React, { Component } from "react";
 import Array from "./array";
 import Navbar from "./navbar";
-import { getQuicksortAnimations } from "../algorithms/quicksort";
-import { getBubblesortAnimations } from "../algorithms/bubblesort";
-import { getHeapsortAnimations } from "../algorithms/heapsort";
-import { getMergesortAnimations } from "../algorithms/mergesort";
+import { getQuicksortAnimations } from "../../algorithms/quicksort";
+import { getBubblesortAnimations } from "../../algorithms/bubblesort";
+import { getHeapsortAnimations } from "../../algorithms/heapsort";
+import { getMergesortAnimations } from "../../algorithms/mergesort";
 
 let windowWidth = window.innerWidth;
 let windowHeight = window.innerHeight - 200;
 //Calculated the number of bars i wanted in my screen and then got the ratio for any other
 let numberOfBars = Math.ceil(windowWidth * 0.183);
-console.log(windowHeight);
 
 //changes array width and height when resizing
 function reportWindowSize() {
   windowWidth = window.innerWidth;
   windowHeight = window.innerHeight - 200;
   numberOfBars = Math.ceil(windowWidth * 0.183);
+  console.log(windowWidth, windowHeight, numberOfBars);
 }
-window.onresize = reportWindowSize;
+window.onresize = reportWindowSize();
 
 const comparingColor = "pink";
 const pivotColor = "red";
@@ -85,7 +85,7 @@ class Sorting extends Component {
   onReset = () => {
     const array = [];
     for (let i = 0; i < numberOfBars; i++) {
-      array.push(this.getRandomInt(5, 500));
+      array.push(this.getRandomInt(5, windowHeight));
     }
     this.setState({ array });
     this.resetColors();
@@ -241,21 +241,21 @@ class Sorting extends Component {
           pIndexBar.backgroundColor = indexColor;
           barTwoStyle.backgroundColor = comparingColor;
           pivotBar.backgroundColor = pivotColor;
-        }, i * 5);
+        }, i * 3);
 
         // Turns bars back to blue
         setTimeout(() => {
           pIndexBar.backgroundColor = originalColor;
           barTwoStyle.backgroundColor = originalColor;
           pivotBar.backgroundColor = originalColor;
-        }, (i + 1) * 5);
+        }, (i + 1) * 3);
       } else {
         //Swaps bar's heights
         setTimeout(() => {
           let tmp = pIndexBar.height;
           pIndexBar.height = barTwoStyle.height;
           barTwoStyle.height = tmp;
-        }, i * 5);
+        }, i * 3);
       }
     }
     // Turns all bars green - completed / Disables start and generate buttons and enables them again
@@ -264,7 +264,7 @@ class Sorting extends Component {
         barsArray[i].style.backgroundColor = "green";
       }
       this.enableStartorGenerate("generate");
-    }, 5 * animations.length);
+    }, 3 * animations.length);
     this.disableStartandGenerate();
   };
 
