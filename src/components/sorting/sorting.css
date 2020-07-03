@@ -14,10 +14,35 @@
   justify-content: center;
 }
 
-.links {
+.link-enabled:hover {
+  color: white;
+  background-color: rgb(233, 99, 10);
+  border-radius: 5px;
+  padding: 5px;
+  text-decoration: none;
+  margin: 10px;
+}
+
+.link-enabled {
+  color: white;
+  border-radius: 5px;
+  padding: 5px;
+  text-decoration: none;
+  background-color: rgb(0, 0, 0);
+  margin: 10px;
+}
+
+.link-disabled {
+  color: white;
+  background-color: rgb(192, 192, 192);
+  pointer-events: none;
+  text-decoration: line-through;
+  border-radius: 5px;
+  padding: 5px;
   margin: 10px;
 }
 
 .select-buttons {
+  margin: 5px 5px 5px 5px;
   text-align: center;
 }

@@ -5,13 +5,34 @@ import Sorting from "./components/sorting/sorting";
 import Pathfinding from "./components/pathfinding/pathfinding";
 
 class App extends Component {
-  state = {};
+  state = { hidden: false };
+
+  disableLinks = () => {
+    if (this.state.hidden === false) {
+      this.setState({ hidden: true });
+    } else {
+      this.setState({ hidden: false });
+    }
+  };
+
   render() {
     return (
       <React.Fragment>
-        <Select />
-        <Route exact path="/sorting" component={Sorting} />
-        <Route exact path="/pathfinding" component={Pathfinding} />
+        <Select hidden={this.state.hidden} />
+        <Route
+          exact
+          path="/sorting"
+          render={(routeProps) => (
+            <Sorting {...routeProps} disableLinks={this.disableLinks} />
+          )}
+        />
+        <Route
+          exact
+          path="/pathfinding"
+          render={(routeProps) => (
+            <Pathfinding {...routeProps} disableLinks={this.disableLinks} />
+          )}
+        />
       </React.Fragment>
     );
   }

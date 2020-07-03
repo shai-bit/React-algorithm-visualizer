@@ -16,7 +16,6 @@ function reportWindowSize() {
   windowWidth = window.innerWidth;
   windowHeight = window.innerHeight - 200;
   numberOfBars = Math.ceil(windowWidth * 0.183);
-  console.log(windowWidth, windowHeight, numberOfBars);
 }
 window.onresize = reportWindowSize();
 
@@ -156,8 +155,10 @@ class Sorting extends Component {
         barsArray[i].style.backgroundColor = "green";
       }
       this.enableStartorGenerate("generate");
+      this.props.disableLinks();
     }, 5 * animations.length);
     this.disableStartandGenerate();
+    this.props.disableLinks();
   }
 
   // Animations array [state, largest, comparison]
@@ -191,8 +192,10 @@ class Sorting extends Component {
         barsArray[i].style.backgroundColor = "green";
       }
       this.enableStartorGenerate("generate");
+      this.props.disableLinks();
     }, 5 * animations.length);
     this.disableStartandGenerate();
+    this.props.disableLinks();
   };
 
   // Animations array: [state, i, i + 1]
@@ -224,8 +227,10 @@ class Sorting extends Component {
         barsArray[i].style.backgroundColor = "green";
       }
       this.enableStartorGenerate("generate");
+      this.props.disableLinks();
     }, numberOfBars * 100 - 1000);
     this.disableStartandGenerate();
+    this.props.disableLinks();
   };
 
   // Animations array: ["state", pIndex, i, end]
@@ -264,8 +269,10 @@ class Sorting extends Component {
         barsArray[i].style.backgroundColor = "green";
       }
       this.enableStartorGenerate("generate");
+      this.props.disableLinks();
     }, 3 * animations.length);
     this.disableStartandGenerate();
+    this.props.disableLinks();
   };
 
   render() {
