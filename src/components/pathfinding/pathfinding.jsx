@@ -8,32 +8,44 @@ let numberofRows = Math.ceil(windowHeight * 0.024);
 let numberofNodes = Math.ceil(windowWidth * 0.0366);
 
 class Pathfinding extends Component {
-  state = { nodes: [] };
+  state = { grid: [] };
 
   componentDidMount() {
-    let nodes = [];
-    for (let row = 0; row < numberofRows; row++) {
-      const thisRow = [];
-      for (let node = 0; node < numberofNodes; node++) {
-        const thisNode = {
-          row,
-          node,
-          isStart: row === 6 && node === 5,
-          isFinish: row === 6 && node === 45,
-        };
-        thisRow.push(thisNode);
-      }
-      nodes.push(thisRow);
-    }
-    this.setState({ nodes });
+    const grid = this.getNewGrid();
+    this.setState({ grid });
   }
 
+  getNewGrid = () => {
+    let grid = [];
+    for (let row = 0; row < numberofRows; row++) {
+      const thisRow = [];
+      for (let col = 0; col < numberofNodes; col++) {
+        thisRow.push(this.createNode(row, col));
+      }
+      grid.push(thisRow);
+    }
+    return grid;
+  };
+
+  createNode = (row, col) => {
+    return {
+      row,
+      col,
+      isStart: row === 6 && col === 5,
+      isFinish: row === 6 && col === 45,
+      weight: Infinity,
+      visited: false,
+      isWall: false,
+      previousNode: null,
+    };
+  };
+
   render() {
-    const { nodes } = this.state;
+    const { grid } = this.state;
     return (
       <React.Fragment>
         <Navbar />
-        <Grid nodes={nodes} />
+        <Grid grid={grid} />
       </React.Fragment>
     );
   }

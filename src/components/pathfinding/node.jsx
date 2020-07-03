@@ -3,7 +3,17 @@ import "./pathfinding.css";
 
 class Node extends Component {
   render() {
-    const { node, nodeidx, rowidx, isStart, isFinish } = this.props;
+    const {
+      row,
+      col,
+      weight,
+      visited,
+      isWall,
+      previousNode,
+      node,
+      isStart,
+      isFinish,
+    } = this.props;
     let startorfinish = isStart
       ? "node start"
       : isFinish
@@ -11,10 +21,15 @@ class Node extends Component {
       : "node";
     return (
       <div
+        id={`node-${row}-${col}`}
         className={startorfinish}
         node={node}
-        nodeidx={nodeidx}
-        rowidx={rowidx}
+        row={row}
+        col={col}
+        isWall={isWall}
+        weight={weight}
+        visited={visited}
+        previousNode={previousNode}
       ></div>
     );
   }

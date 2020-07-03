@@ -7,17 +7,30 @@ class Grid extends Component {
   render() {
     return (
       <div className="grid">
-        {this.props.nodes.map((row, rowidx) => {
+        {this.props.grid.map((row, rowidx) => {
           return (
             <div className="row" key={rowidx}>
               {row.map((node, nodeidx) => {
-                const { isStart, isFinish } = node;
+                const {
+                  row,
+                  col,
+                  isStart,
+                  isFinish,
+                  weight,
+                  visited,
+                  isWall,
+                  previousNode,
+                } = node;
                 return (
                   <Node
                     key={nodeidx}
-                    rowidx={rowidx}
+                    row={row}
+                    col={col}
+                    weight={weight}
+                    visited={visited}
+                    isWall={isWall}
+                    previousNode={previousNode}
                     node={node}
-                    nodeidx={nodeidx}
                     isStart={isStart}
                     isFinish={isFinish}
                   />
