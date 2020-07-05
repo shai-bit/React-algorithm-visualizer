@@ -10,6 +10,22 @@
   margin-right: 2px;
 }
 
+.bar-animation {
+  animation-name: completed;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@keyframes completed {
+  from {
+    background-color: rgb(75, 252, 21);
+  }
+  to {
+    background-color: rgba(75, 252, 21, 0.2);
+  }
+}
+
 .navbar-collapse {
   justify-content: center;
 }

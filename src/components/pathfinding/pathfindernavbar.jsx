@@ -11,8 +11,9 @@ class Navbar extends Component {
             type="button"
             className="btn btn-secondary"
             style={buttonStyle}
+            onClick={this.props.animate}
           >
-            Button
+            Animate Dijkstras
           </button>
         </div>
       </nav>

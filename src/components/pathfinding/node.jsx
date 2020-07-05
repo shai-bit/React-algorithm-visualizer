@@ -6,10 +6,10 @@ class Node extends Component {
     const {
       row,
       col,
-      weight,
+      distance,
       visited,
-      isWall,
-      previousNode,
+      iswall,
+      previousnode,
       node,
       isStart,
       isFinish,
@@ -26,10 +26,10 @@ class Node extends Component {
         node={node}
         row={row}
         col={col}
-        isWall={isWall}
-        weight={weight}
+        iswall={iswall}
+        distance={distance}
         visited={visited}
-        previousNode={previousNode}
+        previousnode={previousnode}
       ></div>
     );
   }

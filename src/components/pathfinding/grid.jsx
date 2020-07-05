@@ -16,20 +16,20 @@ class Grid extends Component {
                   col,
                   isStart,
                   isFinish,
-                  weight,
+                  distance,
                   visited,
-                  isWall,
-                  previousNode,
+                  iswall,
+                  previousnode,
                 } = node;
                 return (
                   <Node
                     key={nodeidx}
                     row={row}
                     col={col}
-                    weight={weight}
+                    distance={distance}
                     visited={visited}
-                    isWall={isWall}
-                    previousNode={previousNode}
+                    iswall={iswall}
+                    previousnode={previousnode}
                     node={node}
                     isStart={isStart}
                     isFinish={isFinish}

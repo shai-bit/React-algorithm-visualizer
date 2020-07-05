@@ -8,16 +8,52 @@
 .node {
   width: 25px;
   height: 25px;
-  outline: 1px solid grey;
+  outline: 1px solid rgba(125, 201, 204, 0.705);
   display: inline-block;
 }
 
+.animated-node {
+  animation-name: searching;
+  animation-duration: 0.5s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@keyframes searching {
+  from {
+    background-color: rgba(255, 0, 191, 0.5);
+  }
+  to {
+    background-color: rgba(4, 0, 255, 0.5);
+  }
+}
+
+.animated-path {
+  animation-name: path;
+  animation-duration: 1.5s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@keyframes path {
+  from {
+    background-color: rgba(0, 255, 0, 0.8);
+  }
+  to {
+    background-color: rgba(0, 247, 255, 0.8);
+  }
+}
+
 .start {
-  background-color: green;
+  background-color: rgba(0, 128, 0, 0.623);
 }
 
 .finish {
-  background-color: red;
+  background-color: rgb(192, 17, 17);
+}
+
+.finished {
+  background-color: rgba(255, 0, 0, 0.678);
 }
 
 .navbar-collapse {

@@ -76,7 +76,14 @@ class Sorting extends Component {
   resetColors() {
     let bars = document.getElementsByClassName("bar");
     for (let i = 0; i < bars.length; i++) {
-      bars[i].style.backgroundColor = originalColor;
+      bars[i].className = "bar";
+    }
+  }
+
+  animateCompleted() {
+    let bars = document.getElementsByClassName("bar");
+    for (let i = 0; i < bars.length; i++) {
+      bars[i].className = "bar bar-animation";
     }
   }
 
@@ -151,9 +158,7 @@ class Sorting extends Component {
     }
     // Turns all bars green - completed / Disables start and generate buttons and enables them again
     setTimeout(() => {
-      for (let i = 0; i < barsArray.length; i++) {
-        barsArray[i].style.backgroundColor = "green";
-      }
+      this.animateCompleted();
       this.enableStartorGenerate("generate");
       this.props.disableLinks();
     }, 5 * animations.length);
@@ -188,9 +193,7 @@ class Sorting extends Component {
     }
     // Turns all bars green - completed / Disables start and generate buttons and enables them again
     setTimeout(() => {
-      for (let i = 0; i < barsArray.length; i++) {
-        barsArray[i].style.backgroundColor = "green";
-      }
+      this.animateCompleted();
       this.enableStartorGenerate("generate");
       this.props.disableLinks();
     }, 5 * animations.length);
@@ -223,9 +226,7 @@ class Sorting extends Component {
     }
     // Turns all bars green - completed / Disables start and generate buttons and enables them again
     setTimeout(() => {
-      for (let i = 0; i < barsArray.length; i++) {
-        barsArray[i].style.backgroundColor = "green";
-      }
+      this.animateCompleted();
       this.enableStartorGenerate("generate");
       this.props.disableLinks();
     }, numberOfBars * 100 - 1000);
@@ -265,9 +266,7 @@ class Sorting extends Component {
     }
     // Turns all bars green - completed / Disables start and generate buttons and enables them again
     setTimeout(() => {
-      for (let i = 0; i < barsArray.length; i++) {
-        barsArray[i].style.backgroundColor = "green";
-      }
+      this.animateCompleted();
       this.enableStartorGenerate("generate");
       this.props.disableLinks();
     }, 3 * animations.length);
