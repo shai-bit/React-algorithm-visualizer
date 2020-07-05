@@ -21,8 +21,16 @@ class Grid extends Component {
                   iswall,
                   previousnode,
                 } = node;
+                const { onMouseEnter, onMouseDown, onMouseUp } = this.props;
                 return (
                   <Node
+                    onMouseEnter={(node, row, col) =>
+                      onMouseEnter(node, row, col)
+                    }
+                    onMouseDown={(node, row, col) =>
+                      onMouseDown(node, row, col)
+                    }
+                    onMouseUp={(row, col) => onMouseUp(row, col)}
                     key={nodeidx}
                     row={row}
                     col={col}

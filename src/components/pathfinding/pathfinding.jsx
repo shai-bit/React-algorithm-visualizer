@@ -8,13 +8,18 @@ let windowHeight = window.innerHeight;
 let NUMBER_OF_ROWS = Math.floor(windowHeight * 0.0304);
 let NUMBER_OF_NODES = Math.ceil(windowWidth * 0.0366);
 console.log("number of rows, number of nodes", NUMBER_OF_ROWS, NUMBER_OF_NODES);
-const StartNodeRow = 1;
-const StartNodeCol = 5;
-const FinishNodeRow = 9;
-const FinishNodeCol = 45;
 
 class Pathfinding extends Component {
-  state = { grid: [] };
+  state = {
+    grid: [],
+    clicked: false,
+    startNodeRow: 5,
+    startNodeCol: 5,
+    finishNodeRow: 5,
+    finishNodeCol: 30,
+    changingStart: false,
+    changingFinish: false,
+  };
 
   // Creates a new grid on mount
   componentDidMount() {
@@ -35,22 +40,104 @@ class Pathfinding extends Component {
   };
 
   createNode = (row, col) => {
+    const {
+      startNodeRow,
+      startNodeCol,
+      finishNodeRow,
+      finishNodeCol,
+    } = this.state;
     return {
       row,
       col,
-      isStart: row === StartNodeRow && col === StartNodeCol,
-      isFinish: row === FinishNodeRow && col === FinishNodeCol,
+      isStart: row === startNodeRow && col === startNodeCol,
+      isFinish: row === finishNodeRow && col === finishNodeCol,
       distance: Infinity,
       visited: "false",
-      iswall: "false",
+      iswall: false,
       previousnode: null,
     };
   };
 
+  handleMouseDown(node, row, col) {
+    // Avoids making start or finish a wall
+    if (node.isStart) {
+      let newGrid = this.getNewStart(this.state.grid, row, col);
+      this.setState({ changingStart: true, grid: newGrid, clicked: true });
+      return;
+    }
+    if (node.isFinish) {
+      let newGrid = this.getNewFinish(this.state.grid, row, col);
+      this.setState({ changingFinish: true, grid: newGrid, clicked: true });
+      return;
+    }
+    let newGrid = this.getNewGridWithWalls(this.state.grid, row, col);
+    this.setState({ grid: newGrid, clicked: true });
+  }
+
+  handleMouseUp(row, col) {
+    if (this.state.changingStart) {
+      let newGrid = this.getNewStart(this.state.grid, row, col);
+      this.setState({
+        changingStart: false,
+        grid: newGrid,
+        startNodeRow: row,
+        startNodeCol: col,
+      });
+    } else if (this.state.changingFinish) {
+      let newGrid = this.getNewFinish(this.state.grid, row, col);
+      this.setState({
+        changingFinish: false,
+        grid: newGrid,
+        finishNodeRow: row,
+        finishNodeCol: col,
+      });
+    }
+    this.setState({ clicked: false });
+  }
+
+  // Creating walls by hovering over them when mouse is clicked
+  handleMouseEnter(node, row, col) {
+    if (!this.state.clicked) return;
+    // Avoids making start or finish a wall
+    if (this.state.changingStart || this.state.changingFinish) return;
+    let newGrid = this.getNewGridWithWalls(this.state.grid, row, col);
+    this.setState({ grid: newGrid });
+  }
+
+  getNewStart(grid, row, col) {
+    let newGrid = grid.slice();
+    const node = newGrid[row][col];
+    const newNode = { ...node, isStart: !node.isStart };
+    newGrid[row][col] = newNode;
+    return newGrid;
+  }
+
+  getNewFinish(grid, row, col) {
+    let newGrid = grid.slice();
+    const node = newGrid[row][col];
+    const newNode = { ...node, isFinish: !node.isFinish };
+    newGrid[row][col] = newNode;
+    return newGrid;
+  }
+
+  getNewGridWithWalls(grid, row, col) {
+    let newGrid = grid.slice();
+    const node = newGrid[row][col];
+    const newNode = { ...node, iswall: !node.iswall };
+    newGrid[row][col] = newNode;
+    return newGrid;
+  }
+
   animateDijkstras = () => {
+    const {
+      startNodeRow,
+      startNodeCol,
+      finishNodeRow,
+      finishNodeCol,
+    } = this.state;
     const { grid } = this.state;
-    const startNode = grid[StartNodeRow][StartNodeCol];
-    const finishNode = grid[FinishNodeRow][FinishNodeCol];
+    const startNode = grid[startNodeRow][startNodeCol];
+    const finishNode = grid[finishNodeRow][finishNodeCol];
     const visitedNodesInOrder = dijkstras(grid, startNode, finishNode);
     const path = tracePath(finishNode);
     //Animates search
@@ -88,8 +175,15 @@ class Pathfinding extends Component {
     const { grid } = this.state;
     return (
       <React.Fragment>
-        <Navbar animate={this.animateDijkstras} />
-        <Grid grid={grid} />
+        <Navbar animate={() => this.animateDijkstras()} />
+        <Grid
+          grid={grid}
+          onMouseEnter={(node, row, col) =>
+            this.handleMouseEnter(node, row, col)
+          }
+          onMouseDown={(node, row, col) => this.handleMouseDown(node, row, col)}
+          onMouseUp={(row, col) => this.handleMouseUp(row, col)}
+        />
       </React.Fragment>
     );
   }
