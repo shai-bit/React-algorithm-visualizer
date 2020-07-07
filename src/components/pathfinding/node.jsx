@@ -16,12 +16,15 @@ class Node extends Component {
       onMouseEnter,
       onMouseDown,
       onMouseUp,
+      onTouchStart,
+      onTouchMove,
+      onTouchEnd,
     } = this.props;
     let startorfinish = isStart
       ? "node start"
       : isFinish
       ? "node finish"
-      : iswall
+      : iswall === "true"
       ? "node wall"
       : "node";
     return (
@@ -35,9 +38,12 @@ class Node extends Component {
         distance={distance}
         visited={visited}
         previousnode={previousnode}
-        onMouseEnter={() => onMouseEnter(node, row, col)}
+        onMouseEnter={() => onMouseEnter(row, col)}
         onMouseDown={() => onMouseDown(node, row, col)}
         onMouseUp={() => onMouseUp(row, col)}
+        onTouchStart={() => onTouchStart(node, row, col)}
+        onTouchMove={() => onTouchMove(row, col)}
+        onTouchEnd={() => onTouchEnd(row, col)}
       ></div>
     );
   }

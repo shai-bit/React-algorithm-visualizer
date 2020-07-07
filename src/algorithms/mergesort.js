@@ -1,7 +1,8 @@
 export const getMergesortAnimations = (array) => {
+  let mainArray = array.slice();
   let animations = [];
   const auxArray = array.slice();
-  mergesort(array, 0, array.length - 1, auxArray, animations);
+  mergesort(mainArray, 0, array.length - 1, auxArray, animations);
   return animations;
 };
 

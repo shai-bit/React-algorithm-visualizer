@@ -6,7 +6,7 @@ export const dijkstras = (grid, startNode, finishNode) => {
     sortUnvisited(unvisitedNodes);
     let currentNode = unvisitedNodes.shift();
     // If it's a wall you skip it
-    if (currentNode.iswall === true) continue;
+    if (currentNode.iswall === "true") continue;
     if (currentNode.distance === Infinity) return visitedNodesInOrder;
     currentNode.visited = "true";
     visitedNodesInOrder.push(currentNode);
