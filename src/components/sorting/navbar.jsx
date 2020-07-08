@@ -15,7 +15,7 @@ class Navbar extends Component {
     };
 
     return (
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <nav className="navbar navbar-expand-lg">
         <button
           className="navbar-toggler hidden-sm-up"
           type="button"
@@ -28,7 +28,7 @@ class Navbar extends Component {
           <button
             onClick={() => selectAlgorithm("quicksort")}
             type="button"
-            className="btn btn-secondary"
+            className="btn btn-outline-dark"
             style={buttonStyle}
           >
             Quicksort
@@ -36,7 +36,7 @@ class Navbar extends Component {
           <button
             onClick={() => selectAlgorithm("mergesort")}
             type="button"
-            className="btn btn-secondary"
+            className="btn btn-outline-dark"
             style={buttonStyle}
           >
             Mergesort
@@ -44,7 +44,7 @@ class Navbar extends Component {
           <button
             onClick={() => selectAlgorithm("bubblesort")}
             type="button"
-            className="btn btn-secondary"
+            className="btn btn-outline-dark"
             style={buttonStyle}
           >
             Bubblesort
@@ -52,7 +52,7 @@ class Navbar extends Component {
           <button
             onClick={() => selectAlgorithm("heapsort")}
             type="button"
-            className="btn btn-secondary"
+            className="btn btn-outline-dark"
             style={buttonStyle}
           >
             Heap Sort

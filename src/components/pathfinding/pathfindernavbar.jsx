@@ -7,11 +7,11 @@ class Navbar extends Component {
     const { animate, clearPath, animated } = this.props;
     let disabled = animated ? true : false;
     return (
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <nav className="navbar navbar-expand-lg">
         <div className="navbar-collapse">
           <button
             type="button"
-            className="btn btn-secondary"
+            className="btn btn-outline-dark"
             style={buttonStyle}
             onClick={animate}
             disabled={disabled}

@@ -13,10 +13,10 @@ class Pathfinding extends Component {
     grid: [],
     animated: false,
     clicked: false,
-    startNodeRow: 5,
-    startNodeCol: 1,
-    finishNodeRow: 5,
-    finishNodeCol: 5,
+    startNodeRow: Math.floor(NUMBER_OF_ROWS / 2),
+    startNodeCol: Math.floor(NUMBER_OF_NODES / 5),
+    finishNodeRow: Math.floor(NUMBER_OF_ROWS / 2),
+    finishNodeCol: NUMBER_OF_NODES - Math.floor(NUMBER_OF_NODES / 5) - 1,
     changingStart: false,
     changingFinish: false,
   };
@@ -25,6 +25,11 @@ class Pathfinding extends Component {
   componentDidMount() {
     const grid = this.getNewGrid();
     this.setState({ grid });
+    setTimeout(() => {
+      alert(
+        "You can create walls and move start/finish by clicking or dragging."
+      );
+    }, 1000);
   }
 
   getNewGrid = () => {
@@ -146,8 +151,12 @@ class Pathfinding extends Component {
     const finishNode = grid[finishNodeRow][finishNodeCol];
     const visitedNodesInOrder = dijkstras(grid, startNode, finishNode);
     const path = tracePath(finishNode);
+    console.log(path);
+    if (!path) {
+      alert("༼ つ ಥ_ಥ ༽つ No path found");
+      return;
+    }
     let animationsSave = [];
-
     //Animates search
     for (let i = 0; i < visitedNodesInOrder.length; i++)
       setTimeout(() => {
@@ -167,12 +176,6 @@ class Pathfinding extends Component {
     // Animates path
     for (let i = 0; i < path.length; i++)
       setTimeout(() => {
-        // let cancelAnimations = document.getElementsByClassName(
-        //   "node animated-node"
-        // );
-        // for (let j = 0; j < cancelAnimations.length; j++) {
-        //   cancelAnimations[j].className = "node";
-        // }
         for (let j = 0; j < animationsSave.length; j++) {
           animationsSave[j].className = "node";
         }
@@ -182,6 +185,10 @@ class Pathfinding extends Component {
           toAnimate.className = "node animated-path";
         }, i * 20);
       }, visitedNodesInOrder.length * 5);
+    setTimeout(() => {
+      this.props.disableLinks();
+    }, visitedNodesInOrder.length * 5);
+    this.props.disableLinks();
     this.setState({ animated: true });
   };
 

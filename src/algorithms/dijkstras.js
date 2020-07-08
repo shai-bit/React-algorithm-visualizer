@@ -59,6 +59,7 @@ function updateNeighbors(currentNode, grid) {
 export function tracePath(finishNode) {
   let path = [];
   let currentNode = finishNode.previousnode;
+  if (currentNode === null) return false;
   while (currentNode.isStart !== true) {
     path.push(currentNode);
     currentNode = currentNode.previousnode;

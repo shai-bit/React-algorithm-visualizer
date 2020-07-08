@@ -8,7 +8,7 @@
 .node {
   width: 25px;
   height: 25px;
-  outline: 1px solid rgba(125, 201, 204, 0.705);
+  outline: 1px solid rgba(190, 247, 247, 0.705);
   display: inline-block;
 }
 
@@ -30,14 +30,14 @@
 
 .animated-path {
   animation-name: path;
-  animation-duration: 1.5s;
+  animation-duration: 2s;
   animation-iteration-count: infinite;
   animation-direction: alternate;
 }
 
 @keyframes path {
   from {
-    background-color: rgba(0, 255, 0, 0.8);
+    background-color: rgba(0, 255, 115, 0.8);
   }
   to {
     background-color: rgba(0, 247, 255, 0.8);
@@ -45,11 +45,13 @@
 }
 
 .start {
-  background-color: rgba(0, 128, 0, 0.623);
+  background: url(../../resources/space-ship.svg);
+  background-size: cover;
 }
 
 .finish {
-  background-color: rgb(192, 17, 17);
+  background: url(../../resources/planet.svg);
+  background-size: cover;
 }
 
 .wall {
