@@ -4,12 +4,16 @@
 .row {
   justify-content: center;
 }
+.stop {
+  touch-action: manipulation;
+}
 
 .node {
   width: 25px;
   height: 25px;
   outline: 1px solid rgba(190, 247, 247, 0.705);
   display: inline-block;
+  touch-action: manipulation;
 }
 
 .animated-node {
@@ -40,6 +44,8 @@
     background-color: rgba(0, 255, 115, 0.8);
   }
   to {
+    background: url(../../resources/send.svg);
+    background-size: contain;
     background-color: rgba(0, 247, 255, 0.8);
   }
 }

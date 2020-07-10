@@ -4,7 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 class Navbar extends Component {
   render() {
     const buttonStyle = { justifyContent: "center", margin: "10px" };
-    const { animate, clearPath, animated } = this.props;
+    const { animate, clearPath, animated, generateMaze } = this.props;
     let disabled = animated ? true : false;
     return (
       <nav className="navbar navbar-expand-lg">
@@ -17,6 +17,15 @@ class Navbar extends Component {
             disabled={disabled}
           >
             Animate Dijkstras
+          </button>
+          <button
+            type="button"
+            className="btn btn-outline-warning"
+            style={buttonStyle}
+            onClick={generateMaze}
+            disabled={disabled}
+          >
+            Generate Maze
           </button>
           <button
             type="button"

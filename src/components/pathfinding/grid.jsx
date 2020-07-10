@@ -6,10 +6,10 @@ class Grid extends Component {
   state = {};
   render() {
     return (
-      <div className="grid">
+      <div className="grid stop">
         {this.props.grid.map((row, rowidx) => {
           return (
-            <div className="row" key={rowidx}>
+            <div className="row stop" key={rowidx}>
               {row.map((node, nodeidx) => {
                 const {
                   row,

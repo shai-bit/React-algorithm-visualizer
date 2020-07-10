@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Grid from "./grid";
 import Navbar from "./pathfindernavbar";
 import { dijkstras, tracePath } from "../../algorithms/dijkstras";
+import { generateMaze, getOrientation } from "../../algorithms/mazegen";
 
 let windowWidth = window.innerWidth;
 let windowHeight = window.innerHeight;
@@ -220,11 +221,25 @@ class Pathfinding extends Component {
     return newGrid;
   }
 
+  getMaze() {
+    let grid = this.getNewGrid();
+    generateMaze(
+      grid,
+      0,
+      0,
+      NUMBER_OF_NODES,
+      NUMBER_OF_ROWS,
+      getOrientation(NUMBER_OF_NODES, NUMBER_OF_ROWS)
+    );
+    this.setState({ grid });
+  }
+
   render() {
     const { grid, animated } = this.state;
     return (
       <React.Fragment>
         <Navbar
+          generateMaze={() => this.getMaze()}
           animate={() => this.animateDijkstras()}
           clearPath={() => {
             let newGrid = this.clearGrid(grid);
