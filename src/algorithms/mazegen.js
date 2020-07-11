@@ -1,12 +1,27 @@
-export const generateMaze = (grid, x, y, width, height, orientation) => {
+export function clearPassages(grid, passageArray) {
+  for (const passage of passageArray) {
+    grid[passage[0]][passage[1]].iswall = "false";
+  }
+}
+
+export const generateMaze = (
+  grid,
+  x,
+  y,
+  width,
+  height,
+  orientation,
+  passages
+) => {
   if (width < 3 || height < 3) return;
   let horizontal = orientation === "horizontal";
   // x and y coordinates for wall
-  let wallX = x + (horizontal ? 0 : getRandomInt(0, width - 3));
-  let wallY = y + (horizontal ? getRandomInt(0, height - 3) : 0);
+  let wallX = x + (horizontal ? 0 : getRandomInt(0, width - 2));
+  let wallY = y + (horizontal ? getRandomInt(0, height - 2) : 0);
   // x and y passage coordinates
   const passageX = wallX + (horizontal ? getRandomInt(0, width) : 0);
   const passageY = wallY + (horizontal ? 0 : getRandomInt(0, height));
+  passages.push([passageY, passageX]);
   // value to be added in that direction
   const directionX = horizontal ? 1 : 0;
   const directionY = horizontal ? 0 : 1;
@@ -27,28 +42,30 @@ export const generateMaze = (grid, x, y, width, height, orientation) => {
 
   let [newX, newY] = [x, y];
   let [newWidth, newHeight] = horizontal
-    ? [width, wallY - y - 2]
-    : [wallX - x - 2, height];
+    ? [width, wallY - y + 1]
+    : [wallX - x + 1, height];
   generateMaze(
     grid,
     newX,
     newY,
     newWidth,
     newHeight,
-    getOrientation(newWidth, newHeight)
+    getOrientation(newWidth, newHeight),
+    passages
   );
 
   [newX, newY] = horizontal ? [x, wallY + 1] : [wallX + 1, y];
   [newWidth, newHeight] = horizontal
-    ? [width, y + height - wallY - 2]
-    : [x + width - wallX - 2, height];
+    ? [width, y + height - wallY - 1]
+    : [x + width - wallX - 1, height];
   generateMaze(
     grid,
     newX,
     newY,
     newWidth,
     newHeight,
-    getOrientation(newWidth, newHeight)
+    getOrientation(newWidth, newHeight),
+    passages
   );
 };
 
