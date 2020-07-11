@@ -8,6 +8,10 @@
   touch-action: manipulation;
 }
 
+.strike {
+  text-decoration: line-through;
+}
+
 .node {
   width: 25px;
   height: 25px;

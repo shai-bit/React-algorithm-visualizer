@@ -16,6 +16,7 @@ let NUMBER_OF_NODES = Math.ceil(windowWidth * 0.0366);
 class Pathfinding extends Component {
   state = {
     grid: [],
+    animating: false,
     animated: false,
     clicked: false,
     startNodeRow: Math.floor(NUMBER_OF_ROWS / 2),
@@ -70,20 +71,19 @@ class Pathfinding extends Component {
 
   handleMouseDown(node, row, col) {
     if (this.state.animated) return;
-    // Avoids making start or finish a wall
+    // Changes node depending on its attributes
     if (node.isStart) {
       let newGrid = this.getNewStart(this.state.grid, row, col);
       this.setState({ changingStart: true, grid: newGrid, clicked: true });
       return;
-    }
-    if (node.isFinish) {
+    } else if (node.isFinish) {
       let newGrid = this.getNewFinish(this.state.grid, row, col);
       this.setState({ changingFinish: true, grid: newGrid, clicked: true });
       return;
+    } else {
+      let newGrid = this.getNewGridWithWalls(this.state.grid, row, col);
+      this.setState({ grid: newGrid, clicked: true });
     }
-
-    let newGrid = this.getNewGridWithWalls(this.state.grid, row, col);
-    this.setState({ grid: newGrid, clicked: true });
   }
 
   // Reverses node.isStart
@@ -156,7 +156,6 @@ class Pathfinding extends Component {
     const finishNode = grid[finishNodeRow][finishNodeCol];
     const visitedNodesInOrder = dijkstras(grid, startNode, finishNode);
     const path = tracePath(finishNode);
-    console.log(path);
     if (!path) {
       alert("༼ つ ಥ_ಥ ༽つ No path found");
       return;
@@ -192,9 +191,10 @@ class Pathfinding extends Component {
       }, visitedNodesInOrder.length * 5);
     setTimeout(() => {
       this.props.disableLinks();
+      this.setState({ animating: false });
     }, visitedNodesInOrder.length * 5);
     this.props.disableLinks();
-    this.setState({ animated: true });
+    this.setState({ animated: true, animating: true });
   };
 
   clearGrid(grid) {
@@ -226,8 +226,17 @@ class Pathfinding extends Component {
   }
 
   getMaze() {
+    const {
+      startNodeRow,
+      startNodeCol,
+      finishNodeRow,
+      finishNodeCol,
+    } = this.state;
     let grid = this.getNewGrid();
-    let passages = [];
+    let passages = [
+      [startNodeRow, startNodeCol],
+      [finishNodeRow, finishNodeCol],
+    ];
     generateMaze(
       grid,
       0,
@@ -237,12 +246,12 @@ class Pathfinding extends Component {
       getOrientation(NUMBER_OF_NODES, NUMBER_OF_ROWS),
       passages
     );
-    clearPassages(grid, passages);
+    clearPassages(grid, passages, NUMBER_OF_NODES - 1, NUMBER_OF_ROWS - 1);
     this.setState({ grid });
   }
 
   render() {
-    const { grid, animated } = this.state;
+    const { grid, animated, animating } = this.state;
     return (
       <React.Fragment>
         <Navbar
@@ -253,6 +262,7 @@ class Pathfinding extends Component {
             this.setState({ grid: newGrid, animated: false });
           }}
           animated={animated}
+          animating={animating}
         />
         <Grid
           grid={grid}

@@ -1,6 +1,17 @@
-export function clearPassages(grid, passageArray) {
+export function clearPassages(grid, passageArray, width, height) {
   for (const passage of passageArray) {
-    grid[passage[0]][passage[1]].iswall = "false";
+    if (passage[0] > 0) {
+      grid[passage[0] - 1][passage[1]].iswall = "false";
+    }
+    if (passage[0] < height) {
+      grid[passage[0] + 1][passage[1]].iswall = "false";
+    }
+    if (passage[1] > 0) {
+      grid[passage[0]][passage[1] - 1].iswall = "false";
+    }
+    if (passage[1] < width) {
+      grid[passage[0]][passage[1] + 1].iswall = "false";
+    }
   }
 }
 
@@ -15,18 +26,22 @@ export const generateMaze = (
 ) => {
   if (width < 3 || height < 3) return;
   let horizontal = orientation === "horizontal";
+
   // x and y coordinates for wall
   let wallX = x + (horizontal ? 0 : getRandomInt(0, width - 2));
   let wallY = y + (horizontal ? getRandomInt(0, height - 2) : 0);
+
   // x and y passage coordinates
   const passageX = wallX + (horizontal ? getRandomInt(0, width) : 0);
   const passageY = wallY + (horizontal ? 0 : getRandomInt(0, height));
   passages.push([passageY, passageX]);
+
   // value to be added in that direction
   const directionX = horizontal ? 1 : 0;
   const directionY = horizontal ? 0 : 1;
   const length = horizontal ? width : height;
   const passage = horizontal ? passageX : passageY;
+
   for (let i = 0; i < length; i++) {
     let currentNode = horizontal ? wallX : wallY;
     if (
