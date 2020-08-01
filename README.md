@@ -2,8 +2,8 @@
 
 # Algorithm visualizer
 
-An app to visualize sorting and pathfinding algortihms like.<br>
-Access it using https://react-algorithm-visualizer.netlify.app/pathfinding
+An app to visualize sorting and pathfinding algortihms.<br>
+Access it using https://react-algorithm-visualizer.netlify.app
 
 |        Sorting         |        Pathfinding         |
 | :--------------------: | :------------------------: |
