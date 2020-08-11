@@ -10,7 +10,7 @@ class Select extends Component {
         <Link className={`link ${hidden}`} to="/sorting">
           Sorting Algorithms
         </Link>
-        <Link className={`link ${hidden}`} to="/pathfinding">
+        <Link className={`link ${hidden}`} to="/pathfinding/welcome">
           Pathfinding
         </Link>
       </div>

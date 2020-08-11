@@ -1,8 +1,10 @@
 import React, { Component } from "react";
-import { Route } from "react-router-dom";
+import { BrowserRouter, Route } from "react-router-dom";
 import Select from "./components/select";
 import Sorting from "./components/sorting/sorting";
 import Pathfinding from "./components/pathfinding/pathfinding";
+import Popup from "./components/popup/popup";
+import history from "./components/history";
 
 class App extends Component {
   state = { hidden: false };
@@ -18,21 +20,23 @@ class App extends Component {
   render() {
     return (
       <React.Fragment>
-        <Select hidden={this.state.hidden} />
-        <Route
-          exact
-          path="/sorting"
-          render={(routeProps) => (
-            <Sorting {...routeProps} disableLinks={this.disableLinks} />
-          )}
-        />
-        <Route
-          exact
-          path="/pathfinding"
-          render={(routeProps) => (
-            <Pathfinding {...routeProps} disableLinks={this.disableLinks} />
-          )}
-        />
+        <BrowserRouter history={history}>
+          <Select hidden={this.state.hidden} />
+          <Route
+            exact
+            path="/sorting"
+            render={(routeProps) => (
+              <Sorting {...routeProps} disableLinks={this.disableLinks} />
+            )}
+          />
+          <Route
+            path="/pathfinding"
+            render={(routeProps) => (
+              <Pathfinding {...routeProps} disableLinks={this.disableLinks} />
+            )}
+          />
+          <Route path="/pathfinding/welcome" component={Popup} />
+        </BrowserRouter>
       </React.Fragment>
     );
   }

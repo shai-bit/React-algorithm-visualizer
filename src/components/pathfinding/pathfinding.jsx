@@ -31,11 +31,6 @@ class Pathfinding extends Component {
   componentDidMount() {
     const grid = this.getNewGrid();
     this.setState({ grid });
-    setTimeout(() => {
-      alert(
-        "You can create walls and move start/finish by clicking or dragging."
-      );
-    }, 1000);
   }
 
   getNewGrid = () => {

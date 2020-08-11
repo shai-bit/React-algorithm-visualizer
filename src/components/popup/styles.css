@@ -1,0 +1,51 @@
+.popup {
+  height: 100vh;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(77, 77, 77, 0.8);
+  z-index: 3000;
+}
+
+.popup__content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50%;
+  height: 50%;
+  background-image: radial-gradient(
+    circle,
+    rgba(238, 174, 202, 1) 0%,
+    rgba(148, 168, 233, 1) 100%
+  );
+  color: white;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  border-radius: 7px;
+  text-align: center;
+  font-family: Roboto Slab, serif;
+}
+
+.popup__content--text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.popup__close:link,
+.popup__close:visited {
+  color: white;
+  position: absolute;
+  top: 5px;
+  right: 12.5px;
+  font-size: 30px;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.2s;
+}
+
+.popup__close:hover {
+  color: purple;
+}
