@@ -14,7 +14,7 @@ const Popup = (props) => {
           <h3>{props.header}</h3>
           <p>{props.content}</p>
         </div>
-        <Link to={props.linkTo} className="popup__close">
+        <Link to={props.linkTo} className={`popup__close ${props.styling}`}>
           &times;
         </Link>
       </div>

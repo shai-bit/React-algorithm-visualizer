@@ -70,6 +70,14 @@
   transition: all 0.2s;
 }
 
-.popup__close:hover {
+.popup__close.welcome:hover {
   color: purple;
+}
+
+.popup__close.warning:hover {
+  color: black;
+}
+
+.popup__close.algorithms:hover {
+  color: greenyellow;
 }
