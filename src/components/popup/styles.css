@@ -23,6 +23,14 @@
   font-family: Roboto Slab, serif;
 }
 
+.popup__content.initial {
+  background-image: radial-gradient(
+    circle,
+    rgb(174, 200, 238) 0%,
+    rgb(131, 148, 206) 100%
+  );
+}
+
 .popup__content.welcome {
   background-image: radial-gradient(
     circle,

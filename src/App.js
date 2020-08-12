@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Router, Route } from "react-router-dom";
+import { Router, Route, Redirect } from "react-router-dom";
 import Select from "./components/select";
 import Sorting from "./components/sorting/sorting";
 import Pathfinding from "./components/pathfinding/pathfinding";
@@ -22,6 +22,7 @@ class App extends Component {
       <React.Fragment>
         <Router history={history}>
           <Select hidden={this.state.hidden} />
+          <Route render={() => <Redirect to="/pathfinding/welcome" />} />
           <Route
             path="/sorting"
             render={(routeProps) => (
@@ -33,7 +34,7 @@ class App extends Component {
             render={(routeProps) => (
               <Popup
                 {...routeProps}
-                style={"algorithms"}
+                styling={"algorithms"}
                 header={"Welcome!"}
                 content={"Choose and algorithm and click start."}
                 linkTo={"/sorting"}
@@ -52,7 +53,7 @@ class App extends Component {
             render={(routeProps) => (
               <Popup
                 {...routeProps}
-                style={"welcome"}
+                styling={"welcome"}
                 header={"Welcome!"}
                 content={
                   "You can create walls and move start/finish by clicking or dragging."
@@ -67,7 +68,7 @@ class App extends Component {
             render={(routeProps) => (
               <Popup
                 {...routeProps}
-                style={"warning"}
+                styling={"warning"}
                 header={"Sorry!"}
                 content={"༼ つ ಥ_ಥ ༽つ No path found"}
                 linkTo={"/pathfinding"}

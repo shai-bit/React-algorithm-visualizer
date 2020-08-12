@@ -7,11 +7,11 @@ class Select extends Component {
     let hidden = this.props.hidden === false ? "link-enabled" : "link-disabled";
     return (
       <div className="select-buttons">
-        <Link className={`link ${hidden}`} to="/sorting/welcome">
-          Sorting Algorithms
-        </Link>
         <Link className={`link ${hidden}`} to="/pathfinding/welcome">
           Pathfinding
+        </Link>
+        <Link className={`link ${hidden}`} to="/sorting/welcome">
+          Sorting Algorithms
         </Link>
       </div>
     );

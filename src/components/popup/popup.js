@@ -8,7 +8,7 @@ const Popup = (props) => {
     <div onClick={props.onDismiss} className="popup">
       <div
         onClick={(e) => e.stopPropagation()}
-        className={`popup__content ${props.style}`}
+        className={`popup__content ${props.styling}`}
       >
         <div className="popup__content--text">
           <h3>{props.header}</h3>
