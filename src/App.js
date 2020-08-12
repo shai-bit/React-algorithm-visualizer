@@ -36,7 +36,7 @@ class App extends Component {
                 {...routeProps}
                 styling={"algorithms"}
                 header={"Welcome!"}
-                content={"Choose and algorithm and click start."}
+                content={"Choose an algorithm and click start."}
                 linkTo={"/sorting"}
                 onDismiss={() => history.push("/sorting")}
               />
