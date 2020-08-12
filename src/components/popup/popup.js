@@ -1,21 +1,22 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import history from "../history";
+import { Link } from "react-router-dom";
 import "./styles.css";
 
 const Popup = (props) => {
   return ReactDOM.createPortal(
-    <div className="popup" onClick={() => history.push("/pathfinding")}>
-      <div className="popup__content">
+    <div onClick={props.onDismiss} className="popup">
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className={`popup__content ${props.style}`}
+      >
         <div className="popup__content--text">
-          <h3>Welcome!</h3>
-          <p>
-            You can create walls and move start/finish by clicking or dragging.
-          </p>
+          <h3>{props.header}</h3>
+          <p>{props.content}</p>
         </div>
-        <a href="/pathfinding" class="popup__close">
+        <Link to={props.linkTo} className="popup__close">
           &times;
-        </a>
+        </Link>
       </div>
     </div>,
     document.querySelector("#popup")

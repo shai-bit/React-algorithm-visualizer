@@ -6,6 +6,7 @@
   left: 0;
   background-color: rgba(77, 77, 77, 0.8);
   z-index: 3000;
+  cursor: default;
 }
 
 .popup__content {
@@ -15,16 +16,31 @@
   transform: translate(-50%, -50%);
   width: 50%;
   height: 50%;
-  background-image: radial-gradient(
-    circle,
-    rgba(238, 174, 202, 1) 0%,
-    rgba(148, 168, 233, 1) 100%
-  );
   color: white;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
   border-radius: 7px;
   text-align: center;
   font-family: Roboto Slab, serif;
+}
+
+.popup__content.welcome {
+  background-image: radial-gradient(
+    circle,
+    rgba(238, 174, 202, 1) 0%,
+    rgba(148, 168, 233, 1) 100%
+  );
+}
+
+.popup__content.algorithms {
+  background-image: radial-gradient(circle, #7ed56f 0%, #28b485 100%);
+}
+
+.popup__content.warning {
+  background-image: radial-gradient(
+    circle,
+    rgb(226, 19, 71) 0%,
+    rgb(253, 117, 54) 100%
+  );
 }
 
 .popup__content--text {

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter, Route } from "react-router-dom";
+import { Router, Route } from "react-router-dom";
 import Select from "./components/select";
 import Sorting from "./components/sorting/sorting";
 import Pathfinding from "./components/pathfinding/pathfinding";
@@ -20,13 +20,25 @@ class App extends Component {
   render() {
     return (
       <React.Fragment>
-        <BrowserRouter history={history}>
+        <Router history={history}>
           <Select hidden={this.state.hidden} />
           <Route
-            exact
             path="/sorting"
             render={(routeProps) => (
               <Sorting {...routeProps} disableLinks={this.disableLinks} />
+            )}
+          />
+          <Route
+            path="/sorting/welcome"
+            render={(routeProps) => (
+              <Popup
+                {...routeProps}
+                style={"algorithms"}
+                header={"Welcome!"}
+                content={"Choose and algorithm and click start."}
+                linkTo={"/sorting"}
+                onDismiss={() => history.push("/sorting")}
+              />
             )}
           />
           <Route
@@ -35,8 +47,35 @@ class App extends Component {
               <Pathfinding {...routeProps} disableLinks={this.disableLinks} />
             )}
           />
-          <Route path="/pathfinding/welcome" component={Popup} />
-        </BrowserRouter>
+          <Route
+            path="/pathfinding/welcome"
+            render={(routeProps) => (
+              <Popup
+                {...routeProps}
+                style={"welcome"}
+                header={"Welcome!"}
+                content={
+                  "You can create walls and move start/finish by clicking or dragging."
+                }
+                linkTo={"/pathfinding"}
+                onDismiss={() => history.push("/pathfinding")}
+              />
+            )}
+          />
+          <Route
+            path="/pathfinding/warning"
+            render={(routeProps) => (
+              <Popup
+                {...routeProps}
+                style={"warning"}
+                header={"Sorry!"}
+                content={"༼ つ ಥ_ಥ ༽つ No path found"}
+                linkTo={"/pathfinding"}
+                onDismiss={() => history.push("/pathfinding")}
+              />
+            )}
+          />
+        </Router>
       </React.Fragment>
     );
   }

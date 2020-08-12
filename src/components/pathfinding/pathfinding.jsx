@@ -7,6 +7,7 @@ import {
   generateMaze,
   getOrientation,
 } from "../../algorithms/mazegen";
+import history from "../history";
 
 let windowWidth = window.innerWidth;
 let windowHeight = window.innerHeight;
@@ -152,7 +153,7 @@ class Pathfinding extends Component {
     const visitedNodesInOrder = dijkstras(grid, startNode, finishNode);
     const path = tracePath(finishNode);
     if (!path) {
-      alert("༼ つ ಥ_ಥ ༽つ No path found");
+      history.push("/pathfinding/warning");
       return;
     }
     let animationsSave = [];
